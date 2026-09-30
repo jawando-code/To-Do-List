@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List
+        
+    </title>
+</head>
+<body>
+      <h3>To-do</h3>
+        <button id="open-dialog">Add task</button>
+
+            <dialog id="dialog">
+                
+                    <button id="form-close">
+                        <span class="hidden">Close Modal</span>
+                        <span aria-hidden="true"></span>X
+                    </button>
+                    <div>Create new task</div>
+                    <input id="title" placeholder="Title" type="text" />
+                    <input id="task-input" placeholder="Enter task" type="text"  />
+                    <input id="description" placeholder="description" type="text" />
+                    <input id="user-note" placeholder="add notes" type="text" />
+                    <input id="user-dueDate" type="date" />
+                    <button id="submit-task" type="submit">Add task</button>
+              
+                
+            </dialog>
+            
+       
+</body>
+<script type="module" src="./index.js"></script>
+</html>
