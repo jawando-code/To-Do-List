@@ -16,16 +16,18 @@ const userDueDate = document.querySelector("#user-Duedate")
 const container = document.querySelector("#content")
 
 function getTaskFromInput(title,task,description,notes,dueDate){
-    new capture(
-        userTitle.value,
-        taskInput.value,
-        userDescription.value,
-        "dateCreated.value",
-        userDueDate.value
+   let a = new capture(
+        title = userTitle.value,
+       task =  taskInput.value,
+       description = userDescription.value,
+       notes = "dateCreated.value",
+       dueDate =  userDueDate
     )
+    console.log(a)
 }
 const openDialog = () => {
 addTask.addEventListener('click', () => {
+   
     dialog.showModal();
    
 })
@@ -33,8 +35,10 @@ addTask.addEventListener('click', () => {
 
 const closeDialog = () => {
 closeBtn.addEventListener("click", ()=> {
+   
     dialog.close()
     getTaskFromInput()
+    
 })
 
 }
@@ -61,9 +65,9 @@ dialog.addEventListener('keydown', (event) => {
 // }
 
 
-// return{
-//     openDialog, closeDialog, submit
-// }
+return{
+    openDialog, closeDialog, submit
+}
 
 }
 

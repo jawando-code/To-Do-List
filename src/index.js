@@ -6,4 +6,8 @@ import {render} from "./ui.js";
 const taskBox = new toDos 
 console.log(taskBox)
 
-render()
+
+render().openDialog()
+render().closeDialog()
+render().submit()
+
