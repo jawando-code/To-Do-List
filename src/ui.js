@@ -50,7 +50,10 @@ function getTaskFromInput(task,description,notes,dueDate,id){
     )
     
     console.trace(a)
-    return list.pushToTaskList(a.id, a)
+    
+    list.pushToTaskList(a.id, a)
+    console.log(list.getTaskList())
+    return
 }
 
 function clearEntries(){
