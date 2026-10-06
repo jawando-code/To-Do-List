@@ -1,26 +1,59 @@
 import { captureTask } from "./application.js";
 
 
-const list = (() => {
-    // let taskList = [];
-    const taskList = new Map() 
-    const getTaskList = () => taskList;
+// const list = (() => {
+//     // let taskList = [];
+//     const taskList = new Map()
+//     const getTaskList = () => taskList;
 
-    // const pushToTaskList = (obj) => {
-    //     taskList.push(obj)
-    //     console.log(taskList)
-    // } 
+//     // const pushToTaskList = (obj) => {
+//     //     taskList.push(obj)
+//     //     console.log(taskList)
+//     // } 
 
-    const pushToTaskList = (x,y) => {
-       taskList.set(x,y);
+//     const pushToTaskList = (x,y) => {
+//        taskList.set(x,y);
+
+  
      
     
-    }
-    return{
-        getTaskList, pushToTaskList
-    }
+//     }
+//     return{
+//         getTaskList, pushToTaskList
+//     }
 
-}) ()
+// }) ()
+
+
+
+
+
+function save(value) {
+    const id = crypto.randomUUID();
+    localStorage.setItem(id, value);
+
+
+    const idList = JSON.parse(localStorage.getItem('allIDs') || '[]')
+
+    idList.push(id)
+
+    localStorage.setItem('allIDs', JSON.stringify(idList))
+
+    
+
+
+
+}
+
+function getAll() {
+    const list = JSON.parse(localStorage.getItem('allIDs') || "[]")
+    
+    return list.map( id => {
+        const raw = localStorage.getItem(id);
+        return raw ? {id,  ...JSON.parse(raw)} : null;
+    }).filter(Boolean);
+    }
+  
 
 
 
@@ -48,12 +81,25 @@ function getTaskFromInput(task,description,notes,dueDate,id){
        dueDate =  userDueDate,
        id = id
     )
+
+
     
-    console.trace(a)
+  
     
-    list.pushToTaskList(a.id, a)
-    console.log(list.getTaskList())
-    return
+    // list.pushToTaskList(a.id, a)
+    // console.log(list.getTaskList())
+    // const mappingJSON = mapToJSON(list.getTaskList() )
+    // console.log(mapToJSON);
+    // const stringed = a.id
+    // localStorage.setItem(stringed, mappingJSON);
+
+    // return
+    const convert = JSON.stringify(a)
+    save(convert)
+
+    console.log(getAll())
+    return;
+
 }
 
 function clearEntries(){
@@ -91,7 +137,8 @@ closeBtn.addEventListener("click", ()=> {
 
 const submit = () => {
     
-    submitBtn.addEventListener("click", () => {
+    submitBtn.addEventListener("click", (e) => {
+    e.preventDefault()
     dialog.close();
     getTaskFromInput()
     
@@ -114,11 +161,28 @@ dialog.addEventListener('keydown', (event) => {
 // }
 
 
+
+
 return{
     openDialog, closeDialog, submit
 }
 
+
+
 }
+
+// const mapToJSON = (map) => {
+//     return JSON.stringify(Object.fromEntries(map))
+// }
+
+// const JSONtoMap = () => {
+//      const map = new Map(Object.entries(localStorage));
+//      return;
+
+// }
+
+
+
 
 export{renderUIDialogBox}
 
