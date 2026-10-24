@@ -3,30 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List
-        
-    </title>
+    <title>To Do List</title>
+    <link rel="stylesheet" href="./style.css" >
 </head>
 <body>
-      <h3>To-do</h3>
-        <button id="open-dialog">Add task</button>
-
-            <dialog id="dialog">
-                
-                    <button id="form-close">
-                        <span class="hidden">Close Modal</span>
-                        <span aria-hidden="true"></span>X
-                    </button>
-                    <div>Create new task</div>
-                    <input id="task-input" placeholder="Enter task" type="text"  />
-                    <input id="description" placeholder="description" type="text" />
-                    <input id="user-note" placeholder="add notes" type="text" />
-                    <input id="user-dueDate" type="date" />
-                    <button id="submit-task" type="submit">Add task</button>
-              
-                
+    <div class="header-btn-container">
+        <div class="internal-header">
+              <h1>Tasks</h1>
+              <div class="notification menu-pill"></div>
+        </div>
+            <div class="taskbar-container">
+                    <button class="buttons" alt="search-button"><span class="material-symbols-outlined">Search</span>  </button>
+                    <button id="options" alt="more options" command="show-modal" commandfor="more-options-dialog"><span class="material-symbols-outlined">more_horiz</span></button>    
+            </div>
+            <dialog id="more-options-dialog">
+                <button class="close-btn" commandfor="more-options-dialog" command="close"><span class="material-symbols-outlined">Close</span></button>
+                <button class="show-completed"><span class="material-symbols-outlined">visibility</span>Show show-completed notes</button>
+                <button class="trash"><span class="material-symbols-outlined">delete</span>/button>
             </dialog>
-            
+    </div>        
+        <div class="container">
+                <button id="open-dialog"><span class="material-symbols-outlined" alt="add task button">add</span>
+</button>
+                <!-- <button id="open-dialog">
+                    <span class="material-symbols-outlined" alt="add task button">add</span>
+                </button>
+                 <dialog id="dialog">                    
+                        <button class="form-close">
+                            <span class="hidden">Close Modal</span>
+                            <span aria-hidden="true"></span>
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <div>Create new task</div>
+                        <input id="task-input" placeholder="Enter task" type="text"  />
+                        <input id="description" placeholder="description" type="text" />
+                        <input id="user-note" placeholder="add notes" type="text" />
+                        <input id="user-dueDate" type="date" />
+                        <button id="submit-task" type="submit">Add task</button>
+                </dialog> -->
+            <br>
+        </div>    
+        <div class="UImain"></div>
+        <h6>Bin</h6>
        
 </body>
 <script type="module" src="./index.js"></script>
