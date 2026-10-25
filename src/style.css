@@ -262,6 +262,17 @@ dialog{
 }
 }
 
+
+.task-hr {
+ margin-top:var(--step--1);
+ border:none;
+  background-color: rgb(160, 156, 156);
+
+  height:1px;
+  width:80%;
+
+}
+
 .modal-box-line{
   display: flex;
   justify-content:space-around ;

@@ -85,22 +85,24 @@ const addTaskFunction =  ()=> {
  
    
     taskSpan.classList.add('task-text')
+  
 
 
 
-    const br = document.createElement("br");
-    br.classList.add('task-br');
+    const hr = document.createElement("hr");
+    hr.classList.add('task-hr');
 
     const span2 = document.createElement("span")
     span2.classList.add("material-symbols-outlined");
     span2.textContent = "info";
         
-    div.append(span1, taskSpan, br,span2)
-    
-    uiMain.appendChild(div)
+    div.append(span1, taskSpan,span2)
+     
+    uiMain.append(div, hr)
+     taskSpan.focus();
 
     const taskText = document.querySelector(".task-text");
-    taskText.focus();
+    
 
     
     
@@ -115,6 +117,10 @@ const addTaskFunction =  ()=> {
     })
 
 
+
+
+
+    
     // const checkEntry = (() => {
     //     const textTask = document.querySelector('.task-text');
 
@@ -138,12 +144,21 @@ const addTaskFunction =  ()=> {
 
 
 }
+    // uiMain.addEventListener('click', () => {
+        
+    // })
 
+    // const taskContainer = document.querySelector('newTask');
 
+    // taskContainer.addEventListener("moouseenter", () => {
+    //     console.log("mouse-enter")
+    // })
 
+    // uiMain.addEventListener('')
 
-addTask.addEventListener("click", () => {
+addTask.addEventListener("click", (e) => {
     addTaskFunction(); 
+    e.stopPropagation()
   
     
 })
