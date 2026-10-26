@@ -89,8 +89,7 @@ const addTaskFunction =  ()=> {
 
 
 
-    const hr = document.createElement("hr");
-    hr.classList.add('task-hr');
+    
 
     const span2 = document.createElement("span")
     span2.classList.add("material-symbols-outlined");
@@ -98,11 +97,12 @@ const addTaskFunction =  ()=> {
         
     div.append(span1, taskSpan,span2)
      
-    uiMain.append(div, hr)
+    uiMain.append(div)
      taskSpan.focus();
 
-    const taskText = document.querySelector(".task-text");
+
     
+
 
     
     
@@ -116,29 +116,15 @@ const addTaskFunction =  ()=> {
         span1.textContent == "radio_button_checked" ? span1.textContent = "radio_button_unchecked" : span1.textContent = "radio_button_checked";
     })
 
-
+    
 
 
 
     
-    // const checkEntry = (() => {
-    //     const textTask = document.querySelector('.task-text');
-
-    //     textTask.addEventListener("keydown", function(e){
-    //         if(e.key === "Enter"){
-    //           addTaskFunction()
-            
-    //         }
-    //     })
-    // })()
+    
 
     
-// const checkEntry = () => {
-//     const taskEntry = document.querySelector(".task-text");
-//     const newTask = document.querySelector(".newTask")
-//     if(taskEntry.textContent == ''){
-//         uiMain.remove(newTask)
-//     }
+
 // }
 
 
@@ -156,8 +142,36 @@ const addTaskFunction =  ()=> {
 
     // uiMain.addEventListener('')
 
+
+const checkEntry = () => {
+        const textTask = document.querySelector('.task-text');
+
+
+        uiMain.addEventListener('keydown', function(e) {
+            if(e.key === "Enter"){
+                e.target.closest(".task-text");
+                addTaskFunction()
+                e.stopPropagation()
+
+            }
+        })
+
+
+        uiMain.addEventListener('keydown', function(e){
+            if(e.key === "Escape"){
+               const currentTask = e.target.closest(".newTask")
+               if(currentTask){
+                currentTask.remove()
+               }
+            }
+        
+        })
+    }
+   
+
 addTask.addEventListener("click", (e) => {
     addTaskFunction(); 
+    checkEntry()
     e.stopPropagation()
   
     
