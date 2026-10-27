@@ -117,15 +117,7 @@ const addTaskFunction =  ()=> {
     })
 
     
-
-
-
-    
-    
-
-    
-
-// }
+    console.log("Added Task SLot")
 
 
 
@@ -141,41 +133,101 @@ const addTaskFunction =  ()=> {
     // })
 
     // uiMain.addEventListener('')
+let emptyTask = false;
 
 
 const checkEntry = () => {
-        const textTask = document.querySelector('.task-text');
+
 
 
         uiMain.addEventListener('keydown', function(e) {
             if(e.key === "Enter"){
-                e.target.closest(".task-text");
+               const currentTask = e.target.closest(".task-text");
+               if(currentTask.value === '') return;
+
                 addTaskFunction()
-                e.stopPropagation()
+                e.stopImmediatePropagation()
 
             }
         })
 
-
+        uiMain.addEventListener('click', function(e){
+            if(e.target && e.target.matches('#open-dialog') ){
+                // const currentTask = e.target.closest(".task-text");    
+                //     if(!currentTask) {
+                        
+                    addTaskFunction();
+            // }
+        }})
+    
         uiMain.addEventListener('keydown', function(e){
             if(e.key === "Escape"){
-               const currentTask = e.target.closest(".newTask")
-               if(currentTask){
-                currentTask.remove()
-               }
-            }
+               const currentTask = e.target.closest(".task-text")
+               const wholeTask = e.target.closest(".newTask")
+
+               if(currentTask.value === ''){ 
+                wholeTask.remove()
+               } else{
+                 const userChoice = confirm("Are you sure you want to delete task?")
+                e.stopImmediatePropagation()
+                if(userChoice){
+                    // currentTask.remove();
+                    wholeTask.remove()
+                 } else{
+                        console.log("keep task")
+                 }
+                }
+               
+                
         
+                }
         })
-    }
+
+        
+}
+
+
+
    
 
 addTask.addEventListener("click", (e) => {
-    addTaskFunction(); 
+    
+    
+   
+    let inputs = Array.from(document.querySelectorAll('.task-text'));
+
+    console.log(inputs)
+    let hasEmptyFields = inputs.some(input => input.value.trim()  === "");
+    console.log(hasEmptyFields)
+    
+
+   
+    if(hasEmptyFields) {
+        console.log("working")
+        let task = document.querySelector(".task-text")
+        console.log(task)
+        task.focus()
+    
+
+    } else {
+        console.log("not working")
+
+        
+      
+        
+        addTaskFunction();
+    }
+
     checkEntry()
-    e.stopPropagation()
+
+
+   
+ e.stopImmediatePropagation()
   
     
-})
+ })
+
+
 
 function getTaskFromInput(task,description,notes,dueDate,id){
 
