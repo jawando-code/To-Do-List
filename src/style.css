@@ -96,7 +96,11 @@ body{
 
 
 .hidden{
-  display:none;
+  display:none !important
+}
+
+.show{
+  display:inline-flex;
 }
 h1{
     color:orange;
@@ -279,6 +283,7 @@ dialog{
   gap:1rem;
   
 }
+
 
 .notification{
 

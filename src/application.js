@@ -3,8 +3,8 @@
 export class captureTask {
     constructor(
         task = "unknown",
-        description = "unknown",
-        notes = "unknown",
+        description = "null",
+        notes = "null",
         dateCreated = "unknown",
         dueDate = "unknown",
         id = "unknown"
@@ -20,17 +20,5 @@ export class captureTask {
     }
         
 }
-
-// export class toDos {
-//     #taskList = new Map()
-//     // constructor() {
-        
-//     // }
-//     get(){
-//         return this.#taskList
-//     }
-// }
-
-
 
 

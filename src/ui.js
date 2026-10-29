@@ -1,33 +1,7 @@
 import { captureTask } from "./application.js";
 
 
-// const optionBtn = document.querySelector("#options");
-// const closeBtn = document.querySelector(".modal-close");
-// const modal = document.getElementById("modal-box");
-// const options = document.getElementById('options')
 
-
-// options.addEventListener("click", openModal);
-// closeBtn.addEventListener("click", closeModal);
-
-// options.addEventListener('click', function(event){
-//     if(event.target === modal){
-//         closeModal()
-//     }
-// })
-
-// document.addEventListener('keydown', function(event){
-//     if(event.key === "Escape"){
-//         closeModal()
-//     }
-// })
-// function openModal(){
-//    modal.showModal()
-// }
-
-// function closeModal() {
-//     modal.close()
-// }
 
 function save(value) {
 
@@ -78,22 +52,25 @@ const addTaskFunction =  ()=> {
     div.classList.add("newTask")
 
     const span1 = document.createElement("span")
+    span1.classList.add('radio')
     span1.classList.add("material-symbols-outlined");
     span1.textContent = "radio_button_unchecked";
 
     const taskSpan = document.createElement("input");
- 
-   
     taskSpan.classList.add('task-text')
-  
+    taskSpan.spellcheck = true;
 
-
+    const span2 = document.createElement("span")
+                span2.classList.add("hidden")
+                span2.classList.add("material-symbols-outlined");
+                span2.textContent = "info";
+               
+           
 
     
 
-    const span2 = document.createElement("span")
-    span2.classList.add("material-symbols-outlined");
-    span2.textContent = "info";
+  
+
         
     div.append(span1, taskSpan,span2)
      
@@ -101,39 +78,17 @@ const addTaskFunction =  ()=> {
      taskSpan.focus();
 
 
-    
-
-
-    
-    
-    // if(taskSpan.textContent == ""){
-    //     uiMain.remove(div)
-    
-
-
     span1.addEventListener('click', () => {
-
         span1.textContent == "radio_button_checked" ? span1.textContent = "radio_button_unchecked" : span1.textContent = "radio_button_checked";
     })
 
     
-    console.log("Added Task SLot")
+ 
 
 
 
 }
-    // uiMain.addEventListener('click', () => {
-        
-    // })
 
-    // const taskContainer = document.querySelector('newTask');
-
-    // taskContainer.addEventListener("moouseenter", () => {
-    //     console.log("mouse-enter")
-    // })
-
-    // uiMain.addEventListener('')
-let emptyTask = false;
 
 
 const checkEntry = () => {
@@ -177,8 +132,7 @@ const checkEntry = () => {
                         console.log("keep task")
                  }
                 }
-               
-                
+
         
                 }
         })
@@ -193,29 +147,66 @@ const checkEntry = () => {
 addTask.addEventListener("click", (e) => {
     
     
-   
+    let currentClosest = e.target.closest('.task-text')
     let inputs = Array.from(document.querySelectorAll('.task-text'));
+    let currentTask = [...document.querySelectorAll('.task-text')].at(-1)
+
 
     console.log(inputs)
     let hasEmptyFields = inputs.some(input => input.value.trim()  === "");
     console.log(hasEmptyFields)
     
-
+    if(inputs){
+        uiMain.addEventListener('click', function(e)  {
+                const info = e.target.closest(".task-text");
+                const button = e.target.closest('.newTask');
+                const hidden = e.target.closest('.hidden')
+             
+                if(info){
+                    console.log(info)
+                    // if(hidden){
+                    //     hidden.classList.remove('hidden')
+                    // }
+                }
+            })    
+        
+    }
    
+
     if(hasEmptyFields) {
-        console.log("working")
-        let task = document.querySelector(".task-text")
-        console.log(task)
-        task.focus()
+        let taskContainer = document.querySelector(".newTask");
+
+        
+        
+
+        currentTask.addEventListener('focusout', function(e) {
+            console.log("focusout")
+            if(currentTask.value.trim() === ""){
+                e.target.closest('.newTask').remove();
+            }
+    });
+        console.log(currentTask)
+
+        currentTask.focus()
+        
     
 
     } else {
         console.log("not working")
 
-        
-      
-        
         addTaskFunction();
+        const current = [...document.querySelectorAll('.newTask')].at(-1);
+
+    
+
+        current.addEventListener('focusout', () => {
+         if(current.value !== '')return;
+        
+        current.remove() 
+        return;
+    } 
+)
+    
     }
 
     checkEntry()
@@ -287,6 +278,8 @@ const submit = () => {
 })
 }
 
+
+
 dialog.addEventListener('keydown', (event) => {
     if(event.key === "Enter"){
         event.preventDefault()
@@ -309,17 +302,20 @@ return{
 
 
 }
-const renderMainUI = (()=> {
+document.addEventListener('click', function(e){
+   
 
-    
-    const UI = document.querySelector("uiMain")
-    const taskDiv = document.createElement('div');
+    let radio = e.target.closest('.radio');
+    let taskInput = e.target.closest('input')
 
-    
+    console.log(radio)
+    console.log(taskInput)
+    if(radio){
+       console.log("help")
 
+    }
 
-})()
-
+})
 
 
 export{renderUIDialogBox}
