@@ -9,14 +9,12 @@ function save(value) {
     localStorage.setItem(id,value)
 
     const idList = JSON.parse(localStorage.getItem('allIDS') || "[]")
-
     idList.push(id)
-
     localStorage.setItem('allIDS', JSON.stringify(idList))
-
 
    
 }
+
 
 function getAll() {
    
@@ -30,68 +28,138 @@ function getAll() {
 }
 
   
-console.log(getAll() )
+
 
 const renderUIDialogBox = () => {
+    // create task elements//
+    const addTaskBtn = document.querySelector('#addtask');
+    const closeBtn = document.querySelector("#form-close");
+    const submitBtn = document.querySelector("#submit-task");
+    const taskInput = document.querySelector("#task-input");
+    const userDescription = document.querySelector("#description")
+    const userNote = document.querySelector("#user-note")
+    const userDueDate = document.querySelector("#user-Duedate")
+    const container = document.querySelector("#content");
+    const uiMain = document.querySelector(".UImain")
 
 
-const addTask = document.querySelector('#open-dialog');
-const dialog = document.querySelector("#dialog");
-const closeBtn = document.querySelector("#form-close");
-const submitBtn = document.querySelector("#submit-task");
-const taskInput = document.querySelector("#task-input");
-const userDescription = document.querySelector("#description")
-const userNote = document.querySelector("#user-note")
-const userDueDate = document.querySelector("#user-Duedate")
-const container = document.querySelector("#content");
-const uiMain = document.querySelector(".UImain")
 
-const addTaskFunction =  ()=> {
+
+const addTaskFunction = () => {  
 
     const div = document.createElement('div');
     div.classList.add("newTask")
 
     const span1 = document.createElement("span")
-    span1.classList.add('radio')
-    span1.classList.add("material-symbols-outlined");
-    span1.textContent = "radio_button_unchecked";
+                
+                // span1.classList.add('radio');
+                span1.classList.add("material-symbols-outlined");
+                span1.textContent = "radio_button_unchecked";
 
     const taskSpan = document.createElement("input");
-    taskSpan.classList.add('task-text')
-    taskSpan.spellcheck = true;
-
-    const span2 = document.createElement("span")
-                span2.classList.add("hidden")
-                span2.classList.add("material-symbols-outlined");
-                span2.textContent = "info";
-               
-           
+                
+                taskSpan.classList.add('task-text')
+                taskSpan.spellcheck = true;
 
     
 
-  
+    // const span2 = document.createElement("span")
+    //             span2.classList.add("hidden")
+    //             span2.classList.add("material-symbols-outlined");
+    //             span2.textContent = "info";  
 
-        
-    div.append(span1, taskSpan,span2)
-     
+
+    
+
+    div.append(span1, taskSpan)
     uiMain.append(div)
+    // Automatically focus on new task entry
+    
      taskSpan.focus();
+    // Add EventListeners
 
+    
 
     span1.addEventListener('click', () => {
-        span1.textContent == "radio_button_checked" ? span1.textContent = "radio_button_unchecked" : span1.textContent = "radio_button_checked";
+        const currentSpan = span1.textContent.trim()
+            if(currentSpan === "radio_button_unchecked"){
+                    span1.textContent = "radio_button_checked" 
+                    taskSpan.classList.add('strikethrough')
+                } else {
+                    span1.textContent = 'radio_button_unchecked'
+                    taskSpan.classList.remove('strikethrough')
+            }; 
+
+        
+    })
+
+     taskSpan.addEventListener('keypress', (e) => {
+        
+        taskSpan.style.width = `${e.target.value.length}ch`
+    })
+   
+    span1.addEventListener('click', () => {
+        if(taskSpan.value === ""){
+            div.remove()
+        }
     })
 
     
+
+    
+    // span1.addEventListener('click', (e) => {
+    //     if(span1.textContent = 'radio_button_checked'){
+    //         taskSpan.classList.add('strikethrough')
+    //     }
+
+    //         // let node = e.target.closest('.newTask')
+
+    //         // console.log(node)
+
+            
+    //         // setTimeout(removeTask(node), 50000)
+            
+
+    //         // function removeTask(node){
+    //         //     node.classList.add('show-hidden')
+    //         //     // node.classList.add('hidden')
+     //       radio_button_unchecked
+
+    //         // }
+        
+
+                   
+    //         //    let index =  taskNodes.indexOf(taskSpan);
+    //         //    console.log(index)
+            
+            
+
+    //     }
+    // })  
+    
+    // span1.addEventListener('click', ()=> {
+    //     if(span1.textContent === "radio_button_checked"){
+    //         span1.textContent = "radio_button_unchecked"
+    //     }
+    // })
+    
+
+
  
+
+
+
+
+
+
+
+   
 
 
 
 }
 
-
-
-const checkEntry = () => {
+ const checkEntry = () => {
 
 
 
@@ -134,17 +202,16 @@ const checkEntry = () => {
                 }
 
         
-                }
+            }
         })
+
+      
+        
 
         
 }
 
-
-
-   
-
-addTask.addEventListener("click", (e) => {
+addTaskBtn.addEventListener("click", (e) => {
     
     
     let currentClosest = e.target.closest('.task-text')
@@ -204,8 +271,7 @@ addTask.addEventListener("click", (e) => {
         
         current.remove() 
         return;
-    } 
-)
+            })
     
     }
 
@@ -220,102 +286,29 @@ addTask.addEventListener("click", (e) => {
 
 
 
-function getTaskFromInput(task,description,notes,dueDate,id){
+    function getTaskFromInput(task,description,notes,dueDate,id){
 
-    let a = new captureTask
-    (
-       task =  taskInput.value,
-       description = userDescription.value,
-       notes = userNote.value,
-       dueDate =  userDueDate,
-       id = id
-    )
+        let a = new captureTask
+        (
+        task =  taskInput.value,
+        description = userDescription.value,
+        notes = userNote.value,
+        dueDate =  userDueDate,
+        id = id
+        )
 
-    const convert = JSON.stringify(a)
-    save(convert)
+        const convert = JSON.stringify(a)
+        save(convert)
 
-    console.log(getAll())
-    return;
-
-}
-
-function clearEntries(){
-
-    taskInput.value = "";
-    userDescription.value = '';
-   userNote.value = "";
-}
-
-
-const openDialog = () => {
-addTask.addEventListener('click', () => {
-   clearEntries();
-    dialog.showModal();
-    
-   
-})
-}
-
-const closeDialog = () => {
-closeBtn.addEventListener("click", ()=> {
-   
-    dialog.close()  
-    
-})
-
-}
-
-
-const submit = () => {
-    
-    submitBtn.addEventListener("click", (e) => {
-    e.preventDefault()
-    dialog.close();
-    getTaskFromInput()
-    
-
-    return;
-})
-}
-
-
-
-dialog.addEventListener('keydown', (event) => {
-    if(event.key === "Enter"){
-        event.preventDefault()
-        event.stopPropagation()
-        
-        dialog.close();
-        getTaskFromInput()
-     
-    }
-})
-
-
-
-return{
-    openDialog, 
-    closeDialog, 
-    submit
-    }
-
-
-
-}
-document.addEventListener('click', function(e){
-   
-
-    let radio = e.target.closest('.radio');
-    let taskInput = e.target.closest('input')
-
-    console.log(radio)
-    console.log(taskInput)
-    if(radio){
-       console.log("help")
+        console.log(getAll())
+        return;
 
     }
 
-})
+
+
+
+}
 
 
 export{renderUIDialogBox}

@@ -78,6 +78,7 @@ table {
 
 
 
+
 :root{
     --font-medium: "HelveticaNeueCyr-Medium", sans-serif;
 }
@@ -92,6 +93,7 @@ table {
 body{
     position: relative;
     background-color: black;
+    font-family:'HelveticaNeueCyr-Medium'
 }
 
 
@@ -99,42 +101,54 @@ body{
   display:none !important
 }
 
+
+
 .show{
-  display:inline-flex;
+  display:inline-block;
 }
+
+
 h1{
     color:orange;
-    font-family:var(--font-medium);
     font-size:var(--step-4);
     
 }
 
-.header-btn-container{
+.navbar{
   display:flex;
-
-  align-items: center;
   justify-content: space-between;
   padding-top: var(--step--2);
   padding-left: var(--step-0);
-  padding-right:var(--step-5);
+  /* padding-right:var(--step-5); */
 
 }
 
-.container{
-  display:flex;
-}
+
 
 #options .material-symbols-outlined,
-#open-dialog .material-symbols-outlined,
+#addtask .material-symbols-outlined,
 .buttons .material-symbols-outlined,
-.newTask .material-symbols-outlined{
+.newTask .material-symbols-outlined,
+.show-completed .material-symbols-outlined,
+.trash .material-symbols-outlined{
     font-size:var(--step-5) ;
     color:orange;
 }
 
 
 .task-text{
-  
+  min-width:8rem;
+  color:white;
+  border:black;
+   background-color:black;
+  height: var(--step-4);
+  font-size:var(--step-4);
+
+}
+
+.strikethrough{
+  text-decoration: line-through;
+  color:grey;
 }
 
 .newTask{
@@ -144,21 +158,20 @@ h1{
   gap:var(--step-0);
  
 }
-input{
-   color:white;
-  border:black;
-   background-color:black;
-  height: var(--step-4);
-  font-size:var(--step-4);
 
-}
 
-input:focus{
+.task-text:focus{
+  /* min-width: 8rem; */
+  outline: solid orange 2px;
   background-color: rgb(24, 23, 23);
-  border: solid black 0px;
+  border: none;
 }
+
+
+
+
 #options,
-#open-dialog{
+#addtask{
  
   all:unset;
     width:var(--step-5);
@@ -181,7 +194,7 @@ input:focus{
 
 
 
-#open-dialog:hover{
+#addtask:hover{
   
   border-radius: 6px;
   background-color: rgb(181, 176, 176);
@@ -194,95 +207,19 @@ input:focus{
 }
 
 .taskbar-container{
-  padding-top:var(--step-0)
-}
-
-#dialog{
-  background-color: orange;
-
-
-}  
-.dropdown-list{
-  
- 
-
-}
-/* 
-.modal-overlay {
-  display: none;
-  position:relative;
-
-  /* right:0; */
-
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  inset-block-start: 0px;
-/* } */
-/* #options .material-symbols-outlined{
-  display:relative;
-  border: solid black 40px;
-} */ */
-dialog{
-  margin:0;
-
-
-}
-.modal-close{
-  align-self: flex-end;
-}
-#modal-box {
-  background:white;
-  position:absolute;
-  margin-top:0.6%;
-  left:82%;
-  max-width: 100%;
+  padding-top:var(--step-0);
   display:flex;
-  flex-direction: column;
-  padding:12px;
+  /*; */
+  justify-content:center;
   
-  /* width: 90%;
-  max-width: 400px;
-  margin: 100px auto; */
-  /* padding: 20px;
-  border-radius: 10px;
-  position: absolute;
-  right:0;
-  top:110;
-  border: solid orange 3px;
-  /* inset-block-start: 0px;
-  inset-inline-start: 0px;
-  */ 
-
-
-&[open]{
-  background-color: silver;
-  border:0;
-}
-
-&[backdrop]{
-  background: hsl(0, 0, 0 / 5);
-  backdrop-filter: blur(5px)
-}
+  gap: var(--step--1)
 }
 
 
-.task-hr {
- margin-top:var(--step--1);
- border:none;
-  background-color: rgb(160, 156, 156);
-
-  height:1px;
-  width:80%;
+.show-completed{
 
 }
 
-.modal-box-line{
-  display: flex;
-  justify-content:space-around ;
-  gap:1rem;
-  
-}
 
 
 .notification{
