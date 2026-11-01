@@ -31,6 +31,7 @@
     "webpack-dev-server": "^6.0.0"
   },
   "dependencies": {
+    "autosize": "^6.0.1",
     "date-fns": "^4.4.0",
     "material-symbols": "^0.47.6"
   }

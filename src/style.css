@@ -109,7 +109,7 @@ body{
 
 
 h1{
-    color:orange;
+     color:oklch(0.65 0.22 180);
     font-size:var(--step-4);
     
 }
@@ -132,19 +132,47 @@ h1{
 .show-completed .material-symbols-outlined,
 .trash .material-symbols-outlined{
     font-size:var(--step-5) ;
-    color:orange;
+    color:oklch(0.65 0.22 180);
 }
 
 
-.task-text{
-  min-width:8rem;
+.task-text {
+
+  /* min-width:8rem;
+  max-width: 85vw; */
+  resize:none;
+  field-sizing: content;
+  max-height: 2lh;
   color:white;
   border:black;
+  overflow:hidden;
    background-color:black;
-  height: var(--step-4);
+  min-height: var(--step-3);
   font-size:var(--step-4);
+ width:80vw;
+ overflow:hidden;
+  
 
 }
+
+
+.task-text:focus{
+  /* min-width: 8rem;
+  max-width:85vw; */
+  resize:none;
+  display:flex;
+  flex-wrap:wrap;
+  
+  outline: oklch(0.65 0.22 180);
+  background-color: rgb(24, 23, 23);
+  min-height: var(--step-3);
+  border: none;
+  width: 80vw;
+  text-wrap: wrap;
+}
+
+
+
 
 .strikethrough{
   text-decoration: line-through;
@@ -155,19 +183,17 @@ h1{
   display:flex;
   align-items: center;
   justify-content: flex-start;
-  gap:var(--step-0);
+  
+  /* justify-content: flex-start; */
+  /* gap:var(--step-0); */
+  
  
 }
 
 
-.task-text:focus{
-  /* min-width: 8rem; */
-  outline: solid orange 2px;
-  background-color: rgb(24, 23, 23);
-  border: none;
+.newTask .radio{
+align-self: flex-start;
 }
-
-
 
 
 #options,
@@ -179,7 +205,7 @@ h1{
   display:inline-flex;
   align-items: center;
   justify-content: center;
-
+  field-sizing: min-content;
   cursor:pointer;
 
 }

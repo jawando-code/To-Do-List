@@ -1,6 +1,6 @@
 import { captureTask } from "./application.js";
 
-
+import autosize from 'autosize';
 
 
 function save(value) {
@@ -52,14 +52,20 @@ const addTaskFunction = () => {
 
     const span1 = document.createElement("span")
                 
-                // span1.classList.add('radio');
+                span1.classList.add('radio');
                 span1.classList.add("material-symbols-outlined");
                 span1.textContent = "radio_button_unchecked";
-
-    const taskSpan = document.createElement("input");
+                
+    const taskSpan = document.createElement("div");
                 
                 taskSpan.classList.add('task-text')
+                taskSpan.contentEditable = true;
                 taskSpan.spellcheck = true;
+                taskSpan.tabIndex = 0;
+                taskSpan.role = "Task-reminder"
+                taskSpan.placeholder = "Add task";
+                taskSpan.textContent = '';
+               
 
     
 
@@ -76,9 +82,11 @@ const addTaskFunction = () => {
     // Automatically focus on new task entry
     
      taskSpan.focus();
+
+
     // Add EventListeners
 
-    
+ 
 
     span1.addEventListener('click', () => {
         const currentSpan = span1.textContent.trim()
@@ -93,9 +101,33 @@ const addTaskFunction = () => {
         
     })
 
-     taskSpan.addEventListener('keypress', (e) => {
+    //  taskSpan.addEventListener('keypress', (e) => {
         
-        taskSpan.style.width = `${e.target.value.length}ch`
+    //     taskSpan.style.width = `${e.target.value.length}ch`
+    // })
+
+
+
+    taskSpan.addEventListener('keydown', function(e) {
+            if(e.key === "Enter"){
+              if(taskSpan.textContent === '')return;
+
+                addTaskFunction()
+               
+
+            }
+        })
+    taskSpan.addEventListener('click', () => {
+        taskSpan.contentEditable = true;
+    })
+    taskSpan.addEventListener('blur', (e) =>  {
+        let ta = document.querySelectorAll('textarea')
+        taskSpan.scrollTop = 0;
+        taskSpan.textContent = taskSpan.textContent.trim();
+        taskSpan.contentEditable = false;
+        const updatedText = taskSpan.textContent;
+        console.log(updatedText)
+        
     })
    
     span1.addEventListener('click', () => {
@@ -163,16 +195,16 @@ const addTaskFunction = () => {
 
 
 
-        uiMain.addEventListener('keydown', function(e) {
-            if(e.key === "Enter"){
-               const currentTask = e.target.closest(".task-text");
-               if(currentTask.value === '') return;
+        // uiMain.addEventListener('keydown', function(e) {
+        //     if(e.key === "Enter"){
+        //        const currentTask = e.target.closest(".task-text");
+        //        if(currentTask.value === '') return;
 
-                addTaskFunction()
-                e.stopImmediatePropagation()
+        //         addTaskFunction()
+        //         e.stopImmediatePropagation()
 
-            }
-        })
+        //     }
+        // })
 
         uiMain.addEventListener('click', function(e){
             if(e.target && e.target.matches('#open-dialog') ){
@@ -220,7 +252,7 @@ addTaskBtn.addEventListener("click", (e) => {
 
 
     console.log(inputs)
-    let hasEmptyFields = inputs.some(input => input.value.trim()  === "");
+    let hasEmptyFields = inputs.some(input => input.value.trim()  == "");
     console.log(hasEmptyFields)
     
     if(inputs){
