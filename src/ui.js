@@ -31,7 +31,9 @@ function getAll() {
 
 
 const renderUIDialogBox = () => {
+
     // create task elements//
+    
     const addTaskBtn = document.querySelector('#addtask');
     const closeBtn = document.querySelector("#form-close");
     const submitBtn = document.querySelector("#submit-task");
@@ -47,8 +49,8 @@ const renderUIDialogBox = () => {
 
 const addTaskFunction = () => {  
 
-    const div = document.createElement('div');
-    div.classList.add("newTask")
+    const newTask = document.createElement('div');
+    newTask.classList.add("newTask")
 
     const span1 = document.createElement("span")
                 
@@ -63,10 +65,18 @@ const addTaskFunction = () => {
                 taskSpan.spellcheck = true;
                 taskSpan.tabIndex = 0;
                 taskSpan.role = "Task-reminder"
-                taskSpan.placeholder = "Add task";
+                taskSpan.ariaPlaceholder = "Add task";
                 taskSpan.textContent = '';
                
-
+    const notes = document.createElement("div");
+        notes.classList.add('notes')
+        
+        notes.contentEditable = true;
+        notes.spellcheck = true;
+        notes.role  ="Additional Notes"
+        notes.ariaPlaceholder = "Add note";
+        notes.placeholder = "Add note..."
+        notes.textContent = ""
     
 
     // const span2 = document.createElement("span")
@@ -74,19 +84,31 @@ const addTaskFunction = () => {
     //             span2.classList.add("material-symbols-outlined");
     //             span2.textContent = "info";  
 
-
+    const container = document.createElement('div')
+        container.classList.add('taskContainer')
     
-
-    div.append(span1, taskSpan)
-    uiMain.append(div)
+    container.append(taskSpan,notes)
+    newTask.append(span1, container)
+    uiMain.append(newTask)
     // Automatically focus on new task entry
-    
+   
+    container.focus();
      taskSpan.focus();
 
 
     // Add EventListeners
+     taskSpan.addEventListener('focus', ()=> {
+        taskSpan.scrollTo = 0;
+        notes.classList.remove('hidden')
+        console.log(notes + 'notes!')
+        
+    })
 
- 
+    taskSpan.addEventListener('blur', ()=> {
+        notes.classList.add('hidden')
+    })
+
+    
 
     span1.addEventListener('click', () => {
         const currentSpan = span1.textContent.trim()
@@ -101,11 +123,13 @@ const addTaskFunction = () => {
         
     })
 
-    //  taskSpan.addEventListener('keypress', (e) => {
+   
+ 
+    taskSpan.addEventListener('blur', () => {
         
-    //     taskSpan.style.width = `${e.target.value.length}ch`
-    // })
 
+        
+    })
 
 
     taskSpan.addEventListener('keydown', function(e) {
@@ -121,12 +145,17 @@ const addTaskFunction = () => {
         taskSpan.contentEditable = true;
     })
     taskSpan.addEventListener('blur', (e) =>  {
-        let ta = document.querySelectorAll('textarea')
+        
         taskSpan.scrollTop = 0;
         taskSpan.textContent = taskSpan.textContent.trim();
         taskSpan.contentEditable = false;
         const updatedText = taskSpan.textContent;
-        console.log(updatedText)
+        
+        
+        
+    })
+
+    taskSpan.addEventListener('blur', () => {
         
     })
    
@@ -138,44 +167,7 @@ const addTaskFunction = () => {
 
     
 
-    
-    // span1.addEventListener('click', (e) => {
-    //     if(span1.textContent = 'radio_button_checked'){
-    //         taskSpan.classList.add('strikethrough')
-    //     }
-
-    //         // let node = e.target.closest('.newTask')
-
-    //         // console.log(node)
-
-            
-    //         // setTimeout(removeTask(node), 50000)
-            
-
-    //         // function removeTask(node){
-    //         //     node.classList.add('show-hidden')
-    //         //     // node.classList.add('hidden')
-     //       radio_button_unchecked
-
-    //         // }
-        
-
-                   
-    //         //    let index =  taskNodes.indexOf(taskSpan);
-    //         //    console.log(index)
-            
-            
-
-    //     }
-    // })  
-    
-    // span1.addEventListener('click', ()=> {
-    //     if(span1.textContent === "radio_button_checked"){
-    //         span1.textContent = "radio_button_unchecked"
-    //     }
-    // })
-    
-
+  
 
  
 
@@ -252,7 +244,7 @@ addTaskBtn.addEventListener("click", (e) => {
 
 
     console.log(inputs)
-    let hasEmptyFields = inputs.some(input => input.value.trim()  == "");
+    let hasEmptyFields = inputs.some(input => input.textContent.trim()  == "");
     console.log(hasEmptyFields)
     
     if(inputs){
@@ -273,14 +265,14 @@ addTaskBtn.addEventListener("click", (e) => {
    
 
     if(hasEmptyFields) {
-        let taskContainer = document.querySelector(".newTask");
+        // let taskContainer = document.querySelector(".newTask");
 
         
         
 
         currentTask.addEventListener('focusout', function(e) {
             console.log("focusout")
-            if(currentTask.value.trim() === ""){
+            if(currentTask.textContent.trim() === ""){
                 e.target.closest('.newTask').remove();
             }
     });

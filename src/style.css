@@ -138,9 +138,8 @@ h1{
 
 .task-text {
 
-  /* min-width:8rem;
-  max-width: 85vw; */
-  resize:none;
+
+  text-wrap-style: pretty;
   field-sizing: content;
   max-height: 2lh;
   color:white;
@@ -151,6 +150,10 @@ h1{
   font-size:var(--step-4);
  width:80vw;
  overflow:hidden;
+ display: -webkit-box;
+ -webkit-box-orient:vertical;
+ -webkit-line-clamp:2;
+ overflow: hidden;
   
 
 }
@@ -162,6 +165,7 @@ h1{
   resize:none;
   display:flex;
   flex-wrap:wrap;
+  max-height: 8lh;
   
   outline: oklch(0.65 0.22 180);
   background-color: rgb(24, 23, 23);
@@ -171,7 +175,36 @@ h1{
   text-wrap: wrap;
 }
 
+.notes{
 
+  color:black;
+  display:flex;
+  max-height: 1lh;
+    text-wrap-style: pretty;
+  field-sizing: content;
+  outline:none;
+  max-height: 10lh;
+  color:white;
+  border:black;
+  overflow:hidden;
+    background-color: rgb(24, 23, 23);
+  min-height: var(--step-3);
+  font-size:var(--step-3);
+ width:80vw;
+ overflow:hidden;
+ display: -webkit-box;
+ -webkit-box-orient:vertical;
+ -webkit-line-clamp:2;
+ overflow: hidden;
+
+}
+.notes:focus{
+  outline:none;
+}
+
+.task-notes:focus{
+  max-height: 20hl;
+}
 
 
 .strikethrough{
@@ -179,10 +212,17 @@ h1{
   color:grey;
 }
 
+.taskContainer{
+  display:flex;
+  flex-direction: column;
+  gap:8px;
+
+}
 .newTask{
   display:flex;
-  align-items: center;
+  justify-content: center;
   justify-content: flex-start;
+
   
   /* justify-content: flex-start; */
   /* gap:var(--step-0); */
