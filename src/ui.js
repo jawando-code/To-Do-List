@@ -58,66 +58,106 @@ const addTaskFunction = () => {
                 span1.classList.add("material-symbols-outlined");
                 span1.textContent = "radio_button_unchecked";
                 
-    const taskSpan = document.createElement("div");
+    const mainTask = document.createElement("div");
                 
-                taskSpan.classList.add('task-text')
-                taskSpan.contentEditable = true;
-                taskSpan.spellcheck = true;
-                taskSpan.tabIndex = 0;
-                taskSpan.role = "Task-reminder"
-                taskSpan.ariaPlaceholder = "Add task";
-                taskSpan.textContent = '';
+                mainTask.classList.add('mainTask')
+                mainTask.contentEditable = true;
+                mainTask.setAttribute('data-placeholder', `Add task...`)
+                mainTask.spellcheck = true;
+                mainTask.tabIndex = 0;
+                mainTask.role = "Task-reminder"
+                mainTask.ariaPlaceholder = "Add task";
+                mainTask.textContent = '';
                
     const notes = document.createElement("div");
         notes.classList.add('notes')
-        
+        notes.setAttribute('data-placeholder', `Add note...`)
         notes.contentEditable = true;
-        notes.spellcheck = true;
-        notes.role  ="Additional Notes"
+       
+        notes.role = "Additional Notes";
         notes.ariaPlaceholder = "Add note";
         notes.placeholder = "Add note..."
         notes.textContent = ""
     
+    
 
-    // const span2 = document.createElement("span")
-    //             span2.classList.add("hidden")
-    //             span2.classList.add("material-symbols-outlined");
-    //             span2.textContent = "info";  
+    const extraInfo = document.createElement("span")
+            extraInfo.classList.add('info')               
+                 
+            extraInfo.classList.add("material-symbols-outlined");
+             extraInfo.textContent = "info";  
 
     const container = document.createElement('div')
         container.classList.add('taskContainer')
     
-    container.append(taskSpan,notes)
-    newTask.append(span1, container)
+    container.append(mainTask,notes)
+    newTask.append(span1, container, extraInfo)
     uiMain.append(newTask)
+
     // Automatically focus on new task entry
    
     container.focus();
-     taskSpan.focus();
+     mainTask.focus();
 
 
     // Add EventListeners
-     taskSpan.addEventListener('focus', ()=> {
-        taskSpan.scrollTo = 0;
-        notes.classList.remove('hidden')
-        console.log(notes + 'notes!')
+     mainTask.addEventListener('focus', ()=> {
+        mainTask.scrollTo = 0;
+        notes.classList.remove('hidden');
+        extraInfo.classList.remove('hidden');
+        console.log(notes + 'notes!');
         
     })
 
-    taskSpan.addEventListener('blur', ()=> {
-        notes.classList.add('hidden')
+    notes.addEventListener('blur', ()=> {
+         notes.spellcheck = false;
+        if(notes.textContent === ''){
+            console.log('here115')
+        notes.classList.add('hidden');
+
+        }
+    })
+    notes.addEventListener('focusout', ()=> {
+        notes.scrollTo = 0;
+        const orignalNotes = notes.textContent;
+
+        if(orignalNotes){
+            // notes.textContent = orignalNotes.trimEnd()
+            
+            notes.scrollTo = 0;
+        }
     })
 
+    mainTask.addEventListener('hover', () => {
+        extraInfo.classList.remove('hidden')
+    })
+    mainTask.addEventListener('focusout', () => {
+        extraInfo.classList.add('hidden')
+        if(notes.textContent === ''){
+            console.log('here127')
+            // notes.classList.add('hidden')
+        }
+    })
+    mainTask.addEventListener('click', ()=> {
+        notes.classList.remove('hidden');
+    })
     
+
+    notes.addEventListener('click', ()=> {
+        notes.classList.remove('hidden')
+        notes.focus()
+
+         notes.spellcheck = true;
+    })
 
     span1.addEventListener('click', () => {
         const currentSpan = span1.textContent.trim()
             if(currentSpan === "radio_button_unchecked"){
                     span1.textContent = "radio_button_checked" 
-                    taskSpan.classList.add('strikethrough')
+                    mainTask.classList.add('strikethrough')
                 } else {
                     span1.textContent = 'radio_button_unchecked'
-                    taskSpan.classList.remove('strikethrough')
+                    mainTask.classList.remove('strikethrough')
             }; 
 
         
@@ -125,42 +165,49 @@ const addTaskFunction = () => {
 
    
  
-    taskSpan.addEventListener('blur', () => {
+    mainTask.addEventListener('blur', () => {
         
 
         
     })
 
 
-    taskSpan.addEventListener('keydown', function(e) {
+    mainTask.addEventListener('keydown', function(e) {
             if(e.key === "Enter"){
-              if(taskSpan.textContent === '')return;
-
-                addTaskFunction()
-               
-
+              if(mainTask.textContent !== '' ){
+                    addTaskFunction()
+                    if(notes.textContent === ''){
+                        notes.classList.add('hidden')
+                    }
+                    
+                        } else {
+                        return;
+                        // mainTask.focus();
+                    }
             }
-        })
-    taskSpan.addEventListener('click', () => {
-        taskSpan.contentEditable = true;
     })
-    taskSpan.addEventListener('blur', (e) =>  {
+
+
+    mainTask.addEventListener('click', () => {
+        mainTask.contentEditable = true;
+    })
+    mainTask.addEventListener('blur', (e) =>  {
         
-        taskSpan.scrollTop = 0;
-        taskSpan.textContent = taskSpan.textContent.trim();
-        taskSpan.contentEditable = false;
-        const updatedText = taskSpan.textContent;
+        mainTask.scrollTop = 0;
+        mainTask.textContent = mainTask.textContent.trim();
+        mainTask.contentEditable = false;
+        const updatedText = mainTask.textContent;
         
         
         
     })
 
-    taskSpan.addEventListener('blur', () => {
+    mainTask.addEventListener('blur', () => {
         
     })
    
     span1.addEventListener('click', () => {
-        if(taskSpan.value === ""){
+        if(mainTask.value === ""){
             div.remove()
         }
     })
@@ -189,27 +236,31 @@ const addTaskFunction = () => {
 
         // uiMain.addEventListener('keydown', function(e) {
         //     if(e.key === "Enter"){
-        //        const currentTask = e.target.closest(".task-text");
-        //        if(currentTask.value === '') return;
+        //        const currentTask = e.target.closest(".mainTask");
+        //        if(currentTask.textContent === ''){
+        //         return;
+        //        } else{
+
+               
 
         //         addTaskFunction()
         //         e.stopImmediatePropagation()
-
+        //        }
         //     }
         // })
 
-        uiMain.addEventListener('click', function(e){
-            if(e.target && e.target.matches('#open-dialog') ){
-                // const currentTask = e.target.closest(".task-text");    
-                //     if(!currentTask) {
+        // uiMain.addEventListener('click', function(e){
+        //     if(e.target && e.target.matches('#open-dialog') ){
+        //         // const currentTask = e.target.closest(".task-text");    
+        //         //     if(!currentTask) {
                         
-                    addTaskFunction();
-            // }
-        }})
+        //             addTaskFunction();
+        //     // }
+        // }})
     
         uiMain.addEventListener('keydown', function(e){
             if(e.key === "Escape"){
-               const currentTask = e.target.closest(".task-text")
+               const currentTask = e.target.closest(".mainTask")
                const wholeTask = e.target.closest(".newTask")
 
                if(currentTask.value === ''){ 
@@ -238,9 +289,9 @@ const addTaskFunction = () => {
 addTaskBtn.addEventListener("click", (e) => {
     
     
-    let currentClosest = e.target.closest('.task-text')
-    let inputs = Array.from(document.querySelectorAll('.task-text'));
-    let currentTask = [...document.querySelectorAll('.task-text')].at(-1)
+    let currentClosest = e.target.closest('.mainTask')
+    let inputs = Array.from(document.querySelectorAll('.mainTask'));
+    let currentTask = [...document.querySelectorAll('.mainTask')].at(-1)
 
 
     console.log(inputs)
@@ -249,7 +300,7 @@ addTaskBtn.addEventListener("click", (e) => {
     
     if(inputs){
         uiMain.addEventListener('click', function(e)  {
-                const info = e.target.closest(".task-text");
+                const info = e.target.closest("mainTask");
                 const button = e.target.closest('.newTask');
                 const hidden = e.target.closest('.hidden')
              

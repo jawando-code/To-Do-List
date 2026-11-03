@@ -130,13 +130,14 @@ h1{
 .buttons .material-symbols-outlined,
 .newTask .material-symbols-outlined,
 .show-completed .material-symbols-outlined,
-.trash .material-symbols-outlined{
+.trash .material-symbols-outlined,
+.info .material-symbols-outlined{
     font-size:var(--step-5) ;
     color:oklch(0.65 0.22 180);
 }
 
 
-.task-text {
+.mainTask {
 
 
   text-wrap-style: pretty;
@@ -159,7 +160,7 @@ h1{
 }
 
 
-.task-text:focus{
+.mainTask:focus{
   /* min-width: 8rem;
   max-width:85vw; */
   resize:none;
@@ -175,19 +176,29 @@ h1{
   text-wrap: wrap;
 }
 
-.notes{
+.mainTask[data-placeholder]:empty::before{
+  content:attr(data-placeholder);
+  color:grey;
+  cursor:text;
+}
 
-  color:black;
+.notes[data-placeholder]:empty::before{
+  content:attr(data-placeholder);
+  color:grey;
+  cursor:text;
+}
+
+.notes{
   display:flex;
   max-height: 1lh;
-    text-wrap-style: pretty;
+  text-wrap-style: pretty;
   field-sizing: content;
   outline:none;
   max-height: 10lh;
-  color:white;
+  color:grey;
   border:black;
   overflow:hidden;
-    background-color: rgb(24, 23, 23);
+  background-color:black;
   min-height: var(--step-3);
   font-size:var(--step-3);
  width:80vw;
@@ -195,15 +206,29 @@ h1{
  display: -webkit-box;
  -webkit-box-orient:vertical;
  -webkit-line-clamp:2;
+ line-clamp: 2;
  overflow: hidden;
 
 }
 .notes:focus{
+   color:gray;
+  display:flex;
+  
+    text-wrap-style: pretty;
+  field-sizing: content;
   outline:none;
-}
+  border:black;
+  overflow:hidden;
+  background-color: rgb(24, 23, 23);
+  /* min-height: var(--step-3); */
+  font-size:var(--step-3);
+  width:80vw;
+ 
 
-.task-notes:focus{
-  max-height: 20hl;
+ display: -webkit-box;
+ -webkit-box-orient:vertical;
+-webkit-line-clamp:20;
+line-clamp:20;
 }
 
 
@@ -230,6 +255,10 @@ h1{
  
 }
 
+.info{
+  background-color: rgb(24, 23, 23);
+  max-height: 1lh;
+}
 
 .newTask .radio{
 align-self: flex-start;
