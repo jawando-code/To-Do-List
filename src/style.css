@@ -58,7 +58,7 @@ select, textarea, button, input{
     vertical-align: baseline;
 }
 
-/* Prevent double borders and cell gaps */
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -78,7 +78,6 @@ table {
 
 
 
-
 :root{
     --font-medium: "HelveticaNeueCyr-Medium", sans-serif;
 }
@@ -90,8 +89,9 @@ table {
 }
 
 
+
+
 body{
-    position: relative;
     background-color: black;
     font-family:'HelveticaNeueCyr-Medium'
 }
@@ -102,10 +102,6 @@ body{
 }
 
 
-
-.show{
-  display:inline-block;
-}
 
 
 h1{
@@ -128,21 +124,19 @@ h1{
 #options .material-symbols-outlined,
 #addtask .material-symbols-outlined,
 .buttons .material-symbols-outlined,
-.newTask .material-symbols-outlined,
+.newTaskBox .material-symbols-outlined,
 .show-completed .material-symbols-outlined,
 .trash .material-symbols-outlined,
-.info .material-symbols-outlined{
+.moreInfoButton .material-symbols-outlined{
     font-size:var(--step-5) ;
     color:oklch(0.65 0.22 180);
 }
 
 
-.mainTask {
-
-
+.createMainTask {
   text-wrap-style: pretty;
-  field-sizing: content;
-  max-height: 2lh;
+  /* field-sizing: content; */
+  /* max-height: 2lh; */
   color:white;
   border:black;
   overflow:hidden;
@@ -150,51 +144,56 @@ h1{
   min-height: var(--step-3);
   font-size:var(--step-4);
  width:80vw;
- overflow:hidden;
  display: -webkit-box;
  -webkit-box-orient:vertical;
  -webkit-line-clamp:2;
+ line-clamp:2;
  overflow: hidden;
   
 
 }
 
 
-.mainTask:focus{
-  /* min-width: 8rem;
-  max-width:85vw; */
-  resize:none;
-  display:flex;
-  flex-wrap:wrap;
-  max-height: 8lh;
-  
-  outline: oklch(0.65 0.22 180);
+.createMainTask:focus-within{
+  /* display:flex;
+  flex-wrap:wrap; */
+  /* max-height: 8lh; */
+  outline: 5px oklch(0.65 0.22 180);
   background-color: rgb(24, 23, 23);
-  min-height: var(--step-3);
+  /* min-height: var(--step-3); */
   border: none;
   width: 80vw;
-  text-wrap: wrap;
+  /* text-wrap: wrap; */
+  /* display: -webkit-box; */
+  display:block;
+  -webkit-line-clamp:unset;
+  /* display: inline-block; */
+
+
 }
 
-.mainTask[data-placeholder]:empty::before{
+.createMainTask:focus-visible{
+  border: 5px oklch(0.65 0.22 180)
+}
+
+
+.createMainTask[data-placeholder]:empty::before{
   content:attr(data-placeholder);
   color:grey;
   cursor:text;
 }
 
-.notes[data-placeholder]:empty::before{
+.userNotes[data-placeholder]:empty::before{
   content:attr(data-placeholder);
   color:grey;
   cursor:text;
 }
 
-.notes{
+.userNotes{
   display:flex;
-  max-height: 1lh;
   text-wrap-style: pretty;
   field-sizing: content;
   outline:none;
-  max-height: 10lh;
   color:grey;
   border:black;
   overflow:hidden;
@@ -205,12 +204,12 @@ h1{
  overflow:hidden;
  display: -webkit-box;
  -webkit-box-orient:vertical;
- -webkit-line-clamp:2;
- line-clamp: 2;
+ -webkit-line-clamp:1;
+ line-clamp: 1;
  overflow: hidden;
 
 }
-.notes:focus{
+.userNotes:focus{
    color:gray;
   display:flex;
   
@@ -237,16 +236,16 @@ line-clamp:20;
   color:grey;
 }
 
-.taskContainer{
+.taskAndNoteContainer{
   display:flex;
   flex-direction: column;
   gap:8px;
 
 }
-.newTask{
+.newTaskBox{
   display:flex;
-  justify-content: center;
   justify-content: flex-start;
+  
 
   
   /* justify-content: flex-start; */
@@ -255,12 +254,12 @@ line-clamp:20;
  
 }
 
-.info{
-  background-color: rgb(24, 23, 23);
-  max-height: 1lh;
+.moreInfoButton{
+  /* background-color: rgb(24, 23, 23); */
+  height: var(--step-5)
 }
 
-.newTask .radio{
+.newTaskBox .radio{
 align-self: flex-start;
 }
 
@@ -356,6 +355,39 @@ transform: scale(.9) translateY(1px);
 
 }
 }
+
+.notification2{
+  align-items: center;
+  animation: pulse-2 2s infinite;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-delay:0s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  animation-name: pulse2;
+  animation-timeline: auto;
+  animation-range-start: normal;
+  animation-range-end:normal;
+}
+
+@keyframes pulse-2{
+  0%{
+    box-shadow: 0 0 0 0  oklch(0.65 0.22 180);
+    transform: scale(.9) translateY(1px);
+  }
+
+  70%{
+    box-shadow: 0 0 0 10px rgba(116, 245, 94, 0);
+    transform: scale(.95) translateY(1px);
+  }
+  100%{
+    box-shadow: 0 0 0 0 rgba(116, 245, 94, 0);
+    transform:  scale(.9) translateX(1px);
+  }
+}
+
 
 .menu-pill {
 
